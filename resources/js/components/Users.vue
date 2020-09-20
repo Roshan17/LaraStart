@@ -1,6 +1,12 @@
 <template>
     <div class="container">
-        <div class="row mt-4">
+        <div class="row justify-content-center" v-if="!$gate.isAdminORAuthor()">
+            <div class="col-md-8 mt-3">
+                <not-found></not-found>
+            </div>
+        </div>
+
+        <div class="row mt-4" v-if="$gate.isAdminORAuthor()">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
@@ -167,7 +173,9 @@
             },
 
             loadUsers(){
-                axios.get("api/user").then(({data}) => (this.users = data.data));
+                if(this.$gate.isAdminORAuthor()){
+                    axios.get("api/user").then(({data}) => (this.users = data.data));
+                }
             },
 
             createUser(id){

@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>AdminLTE 3 | Starter</title>
+  <title>LARASTART</title>
 
     <link rel="stylesheet" href="/css/app.css">
 </head>
@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="./img/dwarf.png" class="img-circle elevation-2" alt="User Image">
+        <img src="{{ '/img/profile/'.Auth::user()->photo }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -78,6 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
 
 
+        @can('isAdminORAuthor')
           <li class="nav-item has-treeview menu-close">
             <a href="#" class="nav-link">
                 <i class="fas fa-cogs green"></i>
@@ -95,7 +96,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endcan
 
+          @can('isAdmin')
           <li class="nav-item">
             <router-link to="/developer" class="nav-link">
                 <i class="fas fa-cogs"></i>
@@ -104,6 +107,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
+          @endcan
 
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
@@ -160,6 +164,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- ./wrapper -->
+@auth
+    <script>
+        window.user = @json(auth()->user());
+    </script>
+@endauth
 
 <script src="/js/app.js"></script>
 </body>

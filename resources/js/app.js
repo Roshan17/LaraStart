@@ -34,6 +34,9 @@ const routes = [
     routes // short for `routes: routes`
   });
 
+  import Gate from './Gate';
+  Vue.prototype.$gate = new Gate(window.user);
+
   Vue.filter('upText',function(text){
     return text.charAt(0).toUpperCase() + text.slice(1)
   });
@@ -79,6 +82,11 @@ Vue.component(
 Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
+);
+
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue').default
 );
 /**
  * The following block of code may be used to automatically register your
